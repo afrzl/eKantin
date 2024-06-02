@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class App
 {
     protected $controller = 'Home';
@@ -11,16 +11,15 @@ class App
         $url = $this->parseURL();
 
         //controllers
-        if (isset($url[0])){
-            if (file_exists('../app/controllers/' . $url[0] . '.php')){
+        if (isset($url[0])) {
+            if (file_exists('app/controllers/' . $url[0] . '.php')) {
                 $this->controller = $url[0];
                 unset($url[0]);
-                
             }
         }
 
-        require_once '../app/controllers/' . $this->controller . '.php';
-        $this->controller = new $this->controller;
+        require_once 'app/controllers/' . $this->controller . '.php';
+        $this->controller = new $this->controller();
 
         //method
         if (isset($url[1])) {
