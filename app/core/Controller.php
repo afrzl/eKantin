@@ -2,14 +2,21 @@
 
 class Controller
 {
-    public function load($data = null)
+    public function load($page = null)
     {
-        switch ($data) {
+        if (isset($_SESSION['id'])) {
+            $cart_count = $this->model('CartModel')->countCartByUserId($_SESSION['id']);
+        }
+        switch ($page) {
             case 'header':
                 require_once 'app/views/templates/header.php';
                 break;
             case 'footer':
                 require_once 'app/views/templates/footer.php';
+                break;
+            case 'navigation':
+                $categories = $this->model('CategoryModel')->getAllCategories();
+                require_once 'app/views/templates/navigation.php';
                 break;
 
             default:

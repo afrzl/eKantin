@@ -57,6 +57,7 @@ class Login extends Controller
     {
         if (isset($_SESSION['id'])) {
             unset($_SESSION['id']);
+            session_destroy();
         }
 
         header('Location: ' . BASE_URL);
@@ -74,7 +75,7 @@ class Login extends Controller
             $oauth2 = new Google_Service_Oauth2($this->client);
             $user = $oauth2->userinfo->get();
 
-            $result = $this->model('UserModel')->getUserByUsername(
+            $result = $this->model('UserModel')->getUserByEmail(
                 $user['email']
             );
             if ($result) {

@@ -34,7 +34,14 @@ class UserModel
         return $this->db->resultSet();
     }
 
-    public function getUserByUsername($email)
+    public function getAllCanteens()
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE role = "CANTEEN"');
+
+        return $this->db->resultSet();
+    }
+
+    public function getUserByEmail($email)
     {
         $this->db->query(
             'SELECT * FROM ' . $this->table . ' WHERE email=:email'
@@ -44,13 +51,23 @@ class UserModel
         return $this->db->single();
     }
 
+    public function getUserById($id)
+    {
+        $this->db->query(
+            'SELECT * FROM ' . $this->table . ' WHERE id=:id'
+        );
+        $this->db->bind('id', $id);
+
+        return $this->db->single();
+    }
+
     public function insertUser($data)
     {
         $data[2] = password_hash($data[2], PASSWORD_DEFAULT);
         $this->db->query(
             'INSERT INTO ' .
-                $this->table .
-                ' (email, name, password) VALUES (:email, :name, :password)'
+            $this->table .
+            ' (email, name, password) VALUES (:email, :name, :password)'
         );
         $this->db->bind('email', $data[0]);
         $this->db->bind('name', $data[1]);

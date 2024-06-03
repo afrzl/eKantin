@@ -1,184 +1,171 @@
-<article>
-    <section class="hero" id="home">
+<main>
+    <!--- BANNER    -->
+    <div class="banner">
         <div class="container">
-            <div class="hero-content">
-                <h2 class="h3">
-                    Sistem Informasi Bukti Pelanggaran
-                </h2>
-                <h1 class="h1 hero-title">Politeknik Statistika STIS</h1>
-                <button class="btn btn-primary">Get started</button>
-            </div>
-            <div class="hero-banner"></div>
-        </div>
-        <img src="<?= ASSETS ?>/images/bg.png" alt="shape" class="shape-content">
-    </section>
-
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-top">
-                <h2 class="h2 section-title">Pengumuman</h2>
-                <p class="section-text">
-                    Data pengumuman yang ditujukan untuk seluruh mahasiswa Politeknik Statistika STIS
-                </p>
-                <ul class="about-list">
-                    <li>
-                        <a href="">
-                            <div class="about-card">
-                                <div class="card-icon">
-                                    <ion-icon name="briefcase-outline"></ion-icon>
-                                </div>
-                                <h3 class="h3 card-title">Perdir 001 Tahun 2020</h3>
-                                <p class="card-text">
-                                    Peraturan Direktur Polstat STIS No. 001 Tahun 2020
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div class="about-card">
-                                <div class="card-icon">
-                                    <ion-icon name="briefcase-outline"></ion-icon>
-                                </div>
-                                <h3 class="h3 card-title">Perdir 002 Tahun 2020</h3>
-                                <p class="card-text">
-                                    Peraturan Direktur Polstat STIS No. 002 Tahun 2020
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div class="about-card">
-                                <div class="card-icon">
-                                    <ion-icon name="briefcase-outline"></ion-icon>
-                                </div>
-                                <h3 class="h3 card-title">Perdir 003 Tahun 2020</h3>
-                                <p class="card-text">
-                                    Peraturan Direktur Polstat STIS No. 003 Tahun 2020
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="about-bottom">
-                <figure class="about-bottom-banner">
-                    <img src="<?= ASSETS ?>/images/about-banner.png" alt="about banner" class="about-banner">
-                </figure>
-                <div class="about-bottom-content">
-                    <h2 class="h2 section-title">We’re obsessed with growth</h2>
-                    <p class="section-text">
-                        Each time a digital asset is purchased or sold, Sequoir donates a percentage of the fees
-                        back into the
-                        development of
-                        the asset through its charitable foundation.
-                    </p>
-                    <button class="btn btn-secondary">Sign Up For Free</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="h2 section-title">Our team is made up of all different backgrounds from all over the
-                world.</h2>
-            <p class="section-text">
-                Each time a digital asset is purchased or sold, Sequoir donates a percentage of the fees back
-                into the
-                development of
-                the asset through its charitable foundation.
-            </p>
-            <ul class="features-list">
-                <li class="features-item">
-                    <figure class="features-item-banner">
-                        <img src="<?= ASSETS ?>/images/feature-1.png" alt="feature banner">
-                    </figure>
-                    <div class="feature-item-content">
-                        <h3 class="h2 item-title">Cover your everyday expenses</h3>
-                        <p class="item-text">
-                            Inspiration comes in many ways and you like to save everything from. sed do eiusmod
-                            tempor incididunt
-                            ut labore et
-                            dolore magna aliqua.
-                        </p>
+            <div class="slider-container has-scrollbar">
+                <div class="slider-item"> <img src="<?= ASSETS ?>/images/gudeg.jpg" alt="women's latest fashion sale"
+                        class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Makanan Trending</p>
+                        <h2 class="banner-title">Gudeg Jogja Yu Jum</h2>
+                        <p class="banner-text"> Dimulai dari &dollar; Rp<b>20</b>.000 </p> <a href="#"
+                            class="banner-btn">Beli Sekarang</a>
                     </div>
-                </li>
-                <li class="features-item">
-                    <figure class="features-item-banner">
-                        <img src="<?= ASSETS ?>/images/feature-2.png" alt="feature banner">
-                    </figure>
-                    <div class="feature-item-content">
-                        <h3 class="h2 item-title">We offer low fees that are transparent</h3>
-                        <p class="item-text">
-                            Each time a digital asset is purchased or sold, Sequoir donates a percentage of the
-                            fees back into the
-                            development of
-                            the asset through its charitable foundation.
-                        </p>
+                </div>
+                <div class="slider-item"> <img src="<?= ASSETS ?>/images/soto.jpg" alt="modern sunglasses"
+                        class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Trending accessories</p>
+                        <h2 class="banner-title">Modern sunglasses</h2>
+                        <p class="banner-text"> starting at &dollar; <b>15</b>.00 </p> <a href="#"
+                            class="banner-btn">Shop now</a>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="cta">
-        <div class="container">
-            <div class="cta-card">
-                <h3 class="cta-title">Try for 7 days free</h3>
-                <p class="cta-text">
-                    Each time a digital asset is purchased or sold, Sequoir donates a percentage of the fees
-                    back.
-                </p>
-                <form action="" class="cta-form">
-                    <input type="email" name="email" placeholder="Your email address">
-                    <button type="submit" class="btn btn-secondary">Try It Now</button>
-                </form>
+                </div>
+                <div class="slider-item"> <img src="<?= ASSETS ?>/images/geprek.webp" alt="new fashion summer sale"
+                        class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Sale Offer</p>
+                        <h2 class="banner-title">New fashion summer sale</h2>
+                        <p class="banner-text"> starting at &dollar; <b>29</b>.99 </p> <a href="#"
+                            class="banner-btn">Shop now</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="contact" id="contact">
+    <!--- PRODUCT -->
+    <div class="product-container">
         <div class="container">
-            <div class="contact-content">
-                <h2 class="h2 contact-title">Let’s scale your brand, together</h2>
-                <figure class="contact-banner">
-                    <img src="<?= ASSETS ?>/images/contact.png" alt="contact banner">
-                </figure>
+            <?php require_once 'app/views/templates/sidebar.php' ?>
+            <div class="product-box">
+                <!--- PRODUCT FEATURED -->
+                <div class="product-main">
+                    <h2 class="title"><?= $data['subtitle'] ?></h2>
+                    <div class="product-grid">
+                        <?php if ($data['products'] == null) { ?>
+                        <p><em>Tidak ada produk...</em></p>
+                        <?php } else { ?>
+                        <?php foreach ($data['products'] as $key => $product) { ?>
+                        <div class="showcase">
+                            <div class="showcase-banner">
+                                <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
+                                    width="300" class="product-img default">
+                                <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
+                                    width="300" class="product-img hover">
+                                <div class="showcase-actions">
+                                    <button class="btn-action">
+                                        <ion-icon name="heart-outline"></ion-icon>
+                                    </button>
+                                    <?php if (isset($_SESSION['id'])) { ?>
+                                    <button onclick="addToCart(<?= $product['id'] ?>)" class="btn-action">
+                                        <ion-icon name="bag-handle-outline"></ion-icon>
+                                    </button>
+                                    <?php } else { ?>
+                                    <a href="<?= BASE_URL ?>/login" class="btn-action">
+                                        <ion-icon name="bag-handle-outline"></ion-icon>
+                                    </a>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <a href="#" class="showcase-category"><?= $product['category_name'] ?></a>
+                                <a href="<?= BASE_URL ?>/product/<?= $product['slug'] ?>">
+                                    <h3 class="showcase-title"><?= $product['name'] ?></h3>
+                                </a>
+                                <div class="showcase-rating">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <ion-icon name="star-outline"></ion-icon>
+                                </div>
+                                <div class="price-box">
+                                    <p class="price">Rp<?= number_format($product['price'], 0, '', '.') ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
             </div>
-            <form action="" class="contact-form">
-
-                <div class="input-wrapper">
-                    <label for="name" class="input-label">Name *</label>
-
-                    <input type="text" name="name" id="name" required placeholder="Type Name" class="input-field">
-                </div>
-
-                <div class="input-wrapper">
-                    <label for="phone" class="input-label">Phone</label>
-
-                    <input type="tel" name="phone" id="phone" placeholder="Type Phone Number" class="input-field">
-                </div>
-
-                <div class="input-wrapper">
-                    <label for="email" class="input-label">Email Address *</label>
-
-                    <input type="email" name="email" id="email" required placeholder="Type Email Address"
-                        class="input-field">
-                </div>
-
-                <div class="input-wrapper">
-                    <label for="message" class="input-label">How can we help? *</label>
-
-                    <textarea name="message" id="message" placeholder="Type Description" required
-                        class="input-field"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Send Message</button>
-
-            </form>
         </div>
-    </section>
 
-</article>
+        <!--- BLOG -->
+        <div class="blog">
+            <div class="container">
+                <div class="blog-container has-scrollbar">
+                    <div class="blog-card"> <a href="#"> <img src="<?= ASSETS ?>/images/blog-1.jpg"
+                                alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300"
+                                class="blog-banner">
+                        </a>
+                        <div class="blog-content"> <a href="#" class="blog-category">Fashion</a> <a href="#">
+                                <h3 class="blog-title">Clothes Retail KPIs 2021 Guide for Clothes Executives.</h3>
+                            </a>
+                            <p class="blog-meta"> By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06,
+                                    2022</time> </p>
+                        </div>
+                    </div>
+                    <div class="blog-card"> <a href="#"> <img src="<?= ASSETS ?>/images/blog-2.jpg"
+                                alt="Curbside fashion Trends: How to Win the Pickup Battle." class="blog-banner"
+                                width="300"> </a>
+                        <div class="blog-content"> <a href="#" class="blog-category">Clothes</a>
+                            <h3> <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup
+                                    Battle.</a> </h3>
+                            <p class="blog-meta"> By <cite>Mr Robin</cite> / <time datetime="2022-01-18">Jan 18,
+                                    2022</time> </p>
+                        </div>
+                    </div>
+                    <div class="blog-card"> <a href="#"> <img src="<?= ASSETS ?>/images/blog-3.jpg"
+                                alt="EBT vendors: Claim Your Share of SNAP Online Revenue." class="blog-banner"
+                                width="300">
+                        </a>
+                        <div class="blog-content"> <a href="#" class="blog-category">Shoes</a>
+                            <h3> <a href="#" class="blog-title">EBT vendors: Claim Your Share of SNAP Online
+                                    Revenue.</a> </h3>
+                            <p class="blog-meta"> By <cite>Mr Selsa</cite> / <time datetime="2022-02-10">Feb 10,
+                                    2022</time> </p>
+                        </div>
+                    </div>
+                    <div class="blog-card"> <a href="#"> <img src="<?= ASSETS ?>/images/blog-4.jpg"
+                                alt="Curbside fashion Trends: How to Win the Pickup Battle." class="blog-banner"
+                                width="300"> </a>
+                        <div class="blog-content"> <a href="#" class="blog-category">Electronics</a>
+                            <h3> <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup
+                                    Battle.</a> </h3>
+                            <p class="blog-meta"> By <cite>Mr Pawar</cite> / <time datetime="2022-03-15">Mar 15,
+                                    2022</time> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+<?php if (isset($_SESSION['id'])) { ?>
+<script type="text/javascript">
+function addToCart(id) {
+    xhttp = new XMLHttpRequest();
+    const userId = <?= $_SESSION['id'] ?>;
+    let body = "";
+    body += "user_id=" + encodeURIComponent(userId);
+    body += "&product_id=" + encodeURIComponent(id);
+    body += "&qty=1";
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // alert('Success menambahkan ke keranjang')
+            console.log(xhttp.responseText);
+            document.querySelectorAll('.bag-count').forEach(function(bag) {
+                bag.innerText = xhttp.responseText;
+            });
+        }
+    };
+
+    xhttp.open("POST", "<?= BASE_URL ?>/cart/store", false);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(body);
+}
+<?php } ?>
+</script>
