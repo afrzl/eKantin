@@ -7,6 +7,7 @@ class Controller
         if (isset($_SESSION['id'])) {
             $cart_count = $this->model('CartModel')->countCartByUserId($_SESSION['id']);
         }
+        $categories = $this->model('CategoryModel')->getAllCategories();
         switch ($page) {
             case 'header':
                 require_once 'app/views/templates/header.php';
@@ -15,7 +16,6 @@ class Controller
                 require_once 'app/views/templates/footer.php';
                 break;
             case 'navigation':
-                $categories = $this->model('CategoryModel')->getAllCategories();
                 require_once 'app/views/templates/navigation.php';
                 break;
 

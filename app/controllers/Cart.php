@@ -116,7 +116,12 @@ class Cart extends Controller
                 echo json_encode($res);
                 return;
             }
-
+        }
+        if ($total_price == 0) {
+            $res->code = 300;
+            $res->msg = 'Keranjang kosong. Silahkan isi keranjang terlebih dahulu.';
+            echo json_encode($res);
+            return;
         }
 
         $data = $this->model('TransactionModel');
@@ -124,6 +129,7 @@ class Cart extends Controller
         $data->total_price = $total_price;
         $data->status = 'PENDING';
         $data->created_at = date('Y-m-d H:i:s');
+        $data->pin = random_int(100000, 999999);
 
         $id_transaction = $data->insert();
 

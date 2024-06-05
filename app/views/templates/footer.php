@@ -1,9 +1,10 @@
 <!--- FOOTER -->
+</div>
 <footer>
     <div class="footer-bottom">
-        <div class="container"> <img src="<?= ASSETS ?>/images/payment.png" alt="payment method" class="payment-img">
-            <p class="copyright"> Copyright 2024 &copy; <a href="#">eKantin STIS</a> All Rights Reserved. </p>
-        </div>
+        <p class="copyright"> Copyright 2024 &copy; <a href="#">eKantin STIS</a></p>
+        <!-- <div class="container"> <img src="<?= ASSETS ?>/images/payment.png" alt="payment method" class="payment-img">
+        </div> -->
     </div>
 </footer>
 

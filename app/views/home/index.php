@@ -53,56 +53,56 @@
                     </div>
                     <div class="product-grid" id="product-grid">
                         <?php if ($data['products'] == null) { ?>
-                        <p><em>Tidak ada produk...</em></p>
+                            <p><em>Tidak ada produk...</em></p>
                         <?php } else { ?>
-                        <?php foreach ($data['products'] as $key => $product) { ?>
-                        <div class="showcase">
-                            <div class="showcase-banner">
-                                <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
-                                    width="300" class="product-img default <?php if ($product['stock'] == 0)
+                            <?php foreach ($data['products'] as $key => $product) { ?>
+                                <div class="showcase">
+                                    <div class="showcase-banner">
+                                        <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
+                                            width="300" class="product-img default <?php if ($product['stock'] == 0)
                                                 echo 'image-habis' ?>">
-                                <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
-                                    width="300" class="product-img hover <?php if ($product['stock'] == 0)
+                                            <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
+                                            width="300" class="product-img hover <?php if ($product['stock'] == 0)
                                                 echo 'image-habis' ?>">
-                                <?php if ($product['stock'] == 0) { ?>
-                                <p class="showcase-badge angle black">habis</p>
-                                <?php } ?>
-                                <div class="showcase-actions">
-                                    <button class="btn-action">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
-                                    <?php if ($product['stock'] > 0) { ?>
-                                    <?php if (isset($_SESSION['id'])) { ?>
-                                    <button onclick="addToCart(<?= $product['id'] ?>)" class="btn-action">
-                                        <ion-icon name="bag-handle-outline"></ion-icon>
-                                    </button>
-                                    <?php } else { ?>
-                                    <a href="<?= BASE_URL ?>/login" class="btn-action">
-                                        <ion-icon name="bag-handle-outline"></ion-icon>
-                                    </a>
-                                    <?php } ?>
-                                    <?php } ?>
+                                        <?php if ($product['stock'] == 0) { ?>
+                                            <p class="showcase-badge angle black">habis</p>
+                                        <?php } ?>
+                                        <div class="showcase-actions">
+                                            <button class="btn-action">
+                                                <ion-icon name="heart-outline"></ion-icon>
+                                            </button>
+                                            <?php if ($product['stock'] > 0) { ?>
+                                                <?php if (isset($_SESSION['id'])) { ?>
+                                                    <button onclick="addToCart(<?= $product['id'] ?>)" class="btn-action">
+                                                        <ion-icon name="bag-handle-outline"></ion-icon>
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <a href="<?= BASE_URL ?>/login" class="btn-action">
+                                                        <ion-icon name="bag-handle-outline"></ion-icon>
+                                                    </a>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="showcase-content">
+                                        <a href="<?= BASE_URL ?>/category/<?= $product['category_slug'] ?>"
+                                            class="showcase-category"><?= $product['category_name'] ?></a>
+                                        <a href="<?= BASE_URL ?>/product/<?= $product['slug'] ?>">
+                                            <h3 class="showcase-title"><?= $product['name'] ?></h3>
+                                        </a>
+                                        <div class="showcase-rating">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star-outline"></ion-icon>
+                                            <ion-icon name="star-outline"></ion-icon>
+                                        </div>
+                                        <div class="price-box">
+                                            <p class="price">Rp<?= number_format($product['price'], 0, '', '.') ?></p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="showcase-content">
-                                <a href="<?= BASE_URL ?>/category/<?= $product['category_slug'] ?>"
-                                    class="showcase-category"><?= $product['category_name'] ?></a>
-                                <a href="<?= BASE_URL ?>/product/<?= $product['slug'] ?>">
-                                    <h3 class="showcase-title"><?= $product['name'] ?></h3>
-                                </a>
-                                <div class="showcase-rating">
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star-outline"></ion-icon>
-                                    <ion-icon name="star-outline"></ion-icon>
-                                </div>
-                                <div class="price-box">
-                                    <p class="price">Rp<?= number_format($product['price'], 0, '', '.') ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <?php } ?>
+                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -161,32 +161,32 @@
 </main>
 
 <?php if (isset($_SESSION['id'])) { ?>
-<script type="text/javascript">
-function addToCart(id) {
-    xhttp = new XMLHttpRequest();
-    const userId = <?= $_SESSION['id'] ?>;
-    let body = "";
-    body += "user_id=" + encodeURIComponent(userId);
-    body += "&product_id=" + encodeURIComponent(id);
-    body += "&qty=1";
+    <script type="text/javascript">
+        function addToCart(id) {
+            xhttp = new XMLHttpRequest();
+            const userId = <?= $_SESSION['id'] ?>;
+            let body = "";
+            body += "user_id=" + encodeURIComponent(userId);
+            body += "&product_id=" + encodeURIComponent(id);
+            body += "&qty=1";
 
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let res = JSON.parse(xhttp.responseText);
-            if (res.code === 200) {
-                alert('Success menambahkan ke keranjang');
-                document.querySelectorAll('.bag-count').forEach(function(bag) {
-                    bag.innerText = res.msg;
-                });
-            } else {
-                alert(res.msg);
-            }
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let res = JSON.parse(xhttp.responseText);
+                    if (res.code === 200) {
+                        alert('Success menambahkan ke keranjang');
+                        document.querySelectorAll('.bag-count').forEach(function (bag) {
+                            bag.innerText = res.msg;
+                        });
+                    } else {
+                        alert(res.msg);
+                    }
+                }
+            };
+
+            xhttp.open("POST", "<?= BASE_URL ?>/cart/store", false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(body);
         }
-    };
-
-    xhttp.open("POST", "<?= BASE_URL ?>/cart/store", false);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(body);
-}
-</script>
+    </script>
 <?php } ?>
