@@ -29,36 +29,35 @@
     </div>
     <header>
         <div class="header-main">
-            <div class="container"> <a href="#" class="header-logo">
+            <div class="container"> <a href="<?= BASE_URL ?>" class="header-logo">
                     <h2>eKantin</h2>
                 </a>
-                <div class="header-search-container"> <input type="search" name="search" class="search-field"
-                        placeholder="Cari makanan..."> <button class="search-btn">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button> </div>
                 <div class="header-user-actions">
+                    <a href="#" class="action-btn">
+                        <ion-icon style="width: 20px;" name="list-outline"></ion-icon>
+                    </a>
                     <a href="#" class="action-btn">
                         <ion-icon style="width: 20px" name="heart-outline"></ion-icon> <span class="count">0</span>
                     </a>
-                    <a href="#" class="action-btn">
+                    <a href="<?= BASE_URL ?>/cart" class="action-btn">
                         <ion-icon style="width: 20px" name="bag-handle-outline"></ion-icon> <span
                             class="count bag-count"><?= isset(
-                            $_SESSION['id']
-                        )
-                            ? $cart_count
-                            : '0' ?></span>
+                                $_SESSION['id']
+                            )
+                                ? ($cart_count ? $cart_count : '0')
+                                : '0' ?></span>
                     </a>
                     <?php if (isset($_SESSION['id'])) { ?>
-                    <a href="#" class="action-btn">
-                        <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span class="header-user-name"><?= $_SESSION[
+                        <a href="#" class="action-btn">
+                            <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span class="header-user-name"><?= $_SESSION[
                                 'name'
                             ] ?></span>
-                    </a>
+                        </a>
                     <?php } else { ?>
-                    <a href="<?= BASE_URL ?>/login" class="action-btn">
-                        <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
-                            class="header-user-name">Login</span>
-                    </a>
+                        <a href="<?= BASE_URL ?>/login" class="action-btn">
+                            <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
+                                class="header-user-name">Login</span>
+                        </a>
                     <?php } ?>
 
                 </div>

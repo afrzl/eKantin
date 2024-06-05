@@ -1,5 +1,5 @@
 <main>
-    <!--- BANNER    -->
+    <!--- BANNER -->
     <div class="banner">
         <div class="container">
             <div class="slider-container has-scrollbar">
@@ -8,8 +8,8 @@
                     <div class="banner-content">
                         <p class="banner-subtitle">Makanan Trending</p>
                         <h2 class="banner-title">Gudeg Jogja Yu Jum</h2>
-                        <p class="banner-text"> Dimulai dari &dollar; Rp<b>20</b>.000 </p> <a href="#"
-                            class="banner-btn">Beli Sekarang</a>
+                        <p class="banner-text"> Dimulai dari Rp<b>20</b>.000 </p> <a href="#" class="banner-btn">Beli
+                            Sekarang</a>
                     </div>
                 </div>
                 <div class="slider-item"> <img src="<?= ASSETS ?>/images/soto.jpg" alt="modern sunglasses"
@@ -42,7 +42,16 @@
                 <!--- PRODUCT FEATURED -->
                 <div class="product-main">
                     <h2 class="title"><?= $data['subtitle'] ?></h2>
-                    <div class="product-grid">
+                    <div class="header-search-container" style="margin-bottom: 20px">
+                        <input type="hidden" id="canteen_id" value="<?= $data['canteen_id'] ?>">
+                        <input type="hidden" id="category_id" value="<?= $data['category_id'] ?>">
+                        <input type="search" onkeyup="searchProduct()" name="search" id="search" class="search-field"
+                            placeholder="Cari produk...">
+                        <button class="search-btn" onclick="searchProduct()">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="product-grid" id="product-grid">
                         <?php if ($data['products'] == null) { ?>
                         <p><em>Tidak ada produk...</em></p>
                         <?php } else { ?>
@@ -50,13 +59,19 @@
                         <div class="showcase">
                             <div class="showcase-banner">
                                 <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
-                                    width="300" class="product-img default">
+                                    width="300" class="product-img default <?php if ($product['stock'] == 0)
+                                                echo 'image-habis' ?>">
                                 <img src="<?= ASSETS ?>/images/products/geprek.png" alt="<?= $product['name'] ?>"
-                                    width="300" class="product-img hover">
+                                    width="300" class="product-img hover <?php if ($product['stock'] == 0)
+                                                echo 'image-habis' ?>">
+                                <?php if ($product['stock'] == 0) { ?>
+                                <p class="showcase-badge angle black">habis</p>
+                                <?php } ?>
                                 <div class="showcase-actions">
                                     <button class="btn-action">
                                         <ion-icon name="heart-outline"></ion-icon>
                                     </button>
+                                    <?php if ($product['stock'] > 0) { ?>
                                     <?php if (isset($_SESSION['id'])) { ?>
                                     <button onclick="addToCart(<?= $product['id'] ?>)" class="btn-action">
                                         <ion-icon name="bag-handle-outline"></ion-icon>
@@ -66,10 +81,12 @@
                                         <ion-icon name="bag-handle-outline"></ion-icon>
                                     </a>
                                     <?php } ?>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="showcase-content">
-                                <a href="#" class="showcase-category"><?= $product['category_name'] ?></a>
+                                <a href="<?= BASE_URL ?>/category/<?= $product['category_slug'] ?>"
+                                    class="showcase-category"><?= $product['category_name'] ?></a>
                                 <a href="<?= BASE_URL ?>/product/<?= $product['slug'] ?>">
                                     <h3 class="showcase-title"><?= $product['name'] ?></h3>
                                 </a>
@@ -155,11 +172,15 @@ function addToCart(id) {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // alert('Success menambahkan ke keranjang')
-            console.log(xhttp.responseText);
-            document.querySelectorAll('.bag-count').forEach(function(bag) {
-                bag.innerText = xhttp.responseText;
-            });
+            let res = JSON.parse(xhttp.responseText);
+            if (res.code === 200) {
+                alert('Success menambahkan ke keranjang');
+                document.querySelectorAll('.bag-count').forEach(function(bag) {
+                    bag.innerText = res.msg;
+                });
+            } else {
+                alert(res.msg);
+            }
         }
     };
 
@@ -167,5 +188,5 @@ function addToCart(id) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(body);
 }
-<?php } ?>
 </script>
+<?php } ?>
