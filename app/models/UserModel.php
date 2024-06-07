@@ -21,6 +21,7 @@ class UserModel
         if (password_verify($data['password'], $res['password'])) {
             $_SESSION['id'] = $res['id'];
             $_SESSION['name'] = $res['name'];
+            $_SESSION['role'] = $res['role'];
             return true;
         }
 

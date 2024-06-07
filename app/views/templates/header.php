@@ -57,6 +57,14 @@
                                             ] ?></span>
                                 </a>
                                 <ul class="dropdown-list">
+                                    <?php if ($_SESSION['role'] == 'CANTEEN') { ?>
+                                    <li class="dropdown-item">
+                                        <a href="<?= BASE_URL ?>/c/dashboard"
+                                            style="display: flex; gap: 10px; align-items: center">
+                                            <ion-icon style="width: 20px;" name="list-outline"></ion-icon> Kantin Menu
+                                        </a>
+                                    </li>
+                                    <?php } ?>
                                     <li class="dropdown-item">
                                         <a href="<?= BASE_URL ?>/order"
                                             style="display: flex; gap: 10px; align-items: center">

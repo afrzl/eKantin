@@ -57,6 +57,8 @@ class Login extends Controller
     {
         if (isset($_SESSION['id'])) {
             unset($_SESSION['id']);
+            unset($_SESSION['name']);
+            unset($_SESSION['role']);
             session_destroy();
         }
 
@@ -81,6 +83,7 @@ class Login extends Controller
             if ($result) {
                 $_SESSION['id'] = $result['id'];
                 $_SESSION['name'] = $result['name'];
+                $_SESSION['role'] = $result['role'];
                 header('Location: ' . BASE_URL);
             } else {
                 $data = [$user['email'], $user['name'], '12345678'];
@@ -90,6 +93,7 @@ class Login extends Controller
                 );
                 $_SESSION['id'] = $result['id'];
                 $_SESSION['name'] = $result['name'];
+                $_SESSION['role'] = $result['role'];
                 header('Location: ' . BASE_URL);
             }
         }
