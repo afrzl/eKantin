@@ -1,6 +1,7 @@
 <?php
 session_start();
 date_default_timezone_set('Asia/Jakarta');
+require_once 'vendor/autoload.php';
 class App
 {
     protected $controller = 'Home';
@@ -15,27 +16,18 @@ class App
         //controllers
         if (isset($url[0])) {
             if ($url[0] == 'a' && isset($url[1])) {
-                if (file_exists('app/controllers/admin/' . $url[1] . '.php')) {
-                    $folder = 'admin/';
-                    unset($url[0]);
-                    $this->controller = $url[1];
-                    unset($url[1]);
-                }
+                $folder = 'admin/';
+                unset($url[0]);
             } else if ($url[0] == 'c' && isset($url[1])) {
-                if (file_exists('app/controllers/canteen/' . $url[1] . '.php')) {
-                    $folder = 'canteen/';
-                    unset($url[0]);
-                    $this->controller = $url[1];
-                    unset($url[1]);
-                }
-            } else {
-                if (file_exists('app/controllers/' . $url[0] . '.php')) {
-                    $this->controller = $url[0];
-                    unset($url[0]);
-                }
+                $folder = 'canteen/';
+                array_shift($url);
+            }
+
+            if (file_exists('app/controllers/' . $folder . $url[0] . '.php')) {
+                $this->controller = $url[0];
+                unset($url[0]);
             }
         }
-
 
         require_once 'app/controllers/' . $folder . $this->controller . '.php';
         $this->controller = new $this->controller();

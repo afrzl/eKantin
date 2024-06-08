@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="<?= ASSETS ?>/css/toastify.css">
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-7z297lBoO1-t8kDj"></script>
 </head>
 
 <body>
@@ -48,44 +52,44 @@
                                     : '0' ?></span>
                         </a>
                         <?php if (isset($_SESSION['id'])) { ?>
-                        <ul class="desktop-menu-category-list">
-                            <li class="menu-category">
-                                <a href="#" class="action-btn">
-                                    <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
-                                        class="header-user-name"><?= $_SESSION[
+                            <ul class="desktop-menu-category-list">
+                                <li class="menu-category">
+                                    <a href="#" class="action-btn">
+                                        <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
+                                            class="header-user-name"><?= $_SESSION[
                                                 'name'
                                             ] ?></span>
-                                </a>
-                                <ul class="dropdown-list">
-                                    <?php if ($_SESSION['role'] == 'CANTEEN') { ?>
-                                    <li class="dropdown-item">
-                                        <a href="<?= BASE_URL ?>/c/dashboard"
-                                            style="display: flex; gap: 10px; align-items: center">
-                                            <ion-icon style="width: 20px;" name="list-outline"></ion-icon> Kantin Menu
-                                        </a>
-                                    </li>
-                                    <?php } ?>
-                                    <li class="dropdown-item">
-                                        <a href="<?= BASE_URL ?>/order"
-                                            style="display: flex; gap: 10px; align-items: center">
-                                            <ion-icon style="width: 20px;" name="list-outline"></ion-icon> Riwayat
-                                            Pesanan
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="<?= BASE_URL ?>/login/out"
-                                            style="display: flex; gap: 10px; align-items: center">
-                                            <ion-icon style="width: 20px;" name="log-out-outline"></ion-icon>Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                                    </a>
+                                    <ul class="dropdown-list">
+                                        <?php if ($_SESSION['role'] == 'CANTEEN') { ?>
+                                            <li class="dropdown-item">
+                                                <a href="<?= BASE_URL ?>/c/dashboard"
+                                                    style="display: flex; gap: 10px; align-items: center">
+                                                    <ion-icon style="width: 20px;" name="list-outline"></ion-icon> Kantin Menu
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                        <li class="dropdown-item">
+                                            <a href="<?= BASE_URL ?>/order"
+                                                style="display: flex; gap: 10px; align-items: center">
+                                                <ion-icon style="width: 20px;" name="list-outline"></ion-icon> Riwayat
+                                                Pesanan
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a href="<?= BASE_URL ?>/login/out"
+                                                style="display: flex; gap: 10px; align-items: center">
+                                                <ion-icon style="width: 20px;" name="log-out-outline"></ion-icon>Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         <?php } else { ?>
-                        <a href="<?= BASE_URL ?>/login" class="action-btn">
-                            <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
-                                class="header-user-name">Login</span>
-                        </a>
+                            <a href="<?= BASE_URL ?>/login" class="action-btn">
+                                <ion-icon style="width: 20px" name="person-outline"></ion-icon> <span
+                                    class="header-user-name">Login</span>
+                            </a>
                         <?php } ?>
 
                     </div>
@@ -115,13 +119,13 @@
                 <ul class="mobile-menu-category-list">
                     <li class="menu-category"> <a href="<?= BASE_URL ?>" class="menu-title">Home</a> </li>
                     <?php foreach ($categories as $category) { ?>
-                    <li class="menu-category">
-                        <a href="<?= BASE_URL ?>/category/<?= $category[
+                        <li class="menu-category">
+                            <a href="<?= BASE_URL ?>/category/<?= $category[
                                   'slug'
                               ] ?>" class="accordion-menu">
-                            <p class="menu-title"><?= $category['name'] ?></p>
-                        </a>
-                    </li>
+                                <p class="menu-title"><?= $category['name'] ?></p>
+                            </a>
+                        </li>
                     <?php } ?>
                 </ul>
                 <div class="menu-bottom">

@@ -1,5 +1,7 @@
 <?php
 
+use Midtrans\Config as Config;
+
 // use TransactionDetailModel;
 
 class Cart extends Controller
@@ -7,10 +9,21 @@ class Cart extends Controller
     public function index()
     {
         $data['title'] = 'Cart';
-        $data['products'] = $this->model('CartModel')->getCartProducts($_SESSION['id']);
-        foreach ($data['products'] as $key => $product) {
-            $data['products'][$key]['canteen'] = $this->model('UserModel')->getUserById($product['product_canteen_id']);
+        $products = $this->model('CartModel')->getCartProducts($_SESSION['id']);
+
+        $canteen_group = array();
+        foreach ($products as $data) {
+            if (isset($canteen_group[$data['product_canteen_id']]))
+                array_push($canteen_group[$data['product_canteen_id']], $data);
+            else
+                $canteen_group[$data['product_canteen_id']] = array($data);
         }
+        $data['canteen_group'] = array_values($canteen_group);
+
+        foreach ($data['canteen_group'] as $key => $cart) {
+            $data['canteen_group'][$key][0]['canteen'] = $this->model('UserModel')->getUserById($cart[0]['product_canteen_id']);
+        }
+
 
         $this->load('header');
         $this->view('cart/index', $data);
@@ -82,13 +95,27 @@ class Cart extends Controller
     {
         $cart = $this->model('CartModel')->getCartProducts($_SESSION['id']);
         $res = new stdclass();
-        $res->total_item = 0;
-        $res->total_harga = 0;
-        foreach ($cart as $product) {
-            $res->total_item += $product['qty'];
-            $res->total_harga += $product['product_price'] * $product['qty'];
+
+        $canteen_group = array();
+        foreach ($cart as $data) {
+            if (isset($canteen_group[$data['product_canteen_id']]))
+                array_push($canteen_group[$data['product_canteen_id']], $data);
+            else
+                $canteen_group[$data['product_canteen_id']] = array($data);
         }
-        $res->total_harga = number_format($res->total_harga, 0, '', '.');
+        $canteens = array_values($canteen_group);
+
+        foreach ($canteens as $key => $canteen) {
+            $total_item[$key] = array_column($canteen, 'qty');
+
+            $total_harga[$key] = array_column($canteen, 'product_price');
+            foreach ($total_harga[$key] as $i => $v) {
+                $total_harga[$key][$i] *= $total_item[$key][$i];
+            }
+
+            $res->total_item[$key] = array_sum($total_item[$key]);
+            $res->total_harga[$key] = number_format(array_sum($total_harga[$key]), 0, '', '.');
+        }
 
         echo json_encode($res);
     }
@@ -102,34 +129,48 @@ class Cart extends Controller
 
     public function payment()
     {
-        $cart = $this->model('CartModel')->getCartProducts($_SESSION['id']);
+        $cart = $this->model('CartModel')->getCartProductsByCanteenId($_SESSION['id'], $_POST['canteen_id']);
+        $user = $this->model('UserModel')->getUserById($_SESSION['id']);
 
-        $res = new stdClass();
+        $total_item = array_column($cart, 'qty');
 
-        $total_price = 0;
-        foreach ($cart as $product) {
-            $total_price += $product['product_price'] * $product['qty'];
-            $dataProduct = $this->model('ProductModel')->getProductById($product['product_id']);
-            if ($dataProduct['stock'] < $product['qty']) {
-                $res->code = 300;
-                $res->msg = 'Stok produk ' . $dataProduct['name'] . ' hanya sisa ' . $dataProduct['stock'];
-                echo json_encode($res);
-                return;
-            }
+        $total_harga = array_column($cart, 'product_price');
+        foreach ($total_harga as $i => $v) {
+            $total_harga[$i] *= $total_item[$i];
         }
-        if ($total_price == 0) {
-            $res->code = 300;
-            $res->msg = 'Keranjang kosong. Silahkan isi keranjang terlebih dahulu.';
-            echo json_encode($res);
-            return;
-        }
+
+        // Set your Merchant Server Key
+        Config::$serverKey = 'SB-Mid-server-3h0ow7ZfGr3V7qZNGKRZOZRF';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = false;
+        // Set sanitization on (default)
+        Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = true;
+        $midtrans_id = rand();
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $midtrans_id,
+                'gross_amount' => array_sum($total_harga),
+            ),
+            // 'item_details' => json_decode($_POST['item'], true),
+            'customer_details' => array(
+                'first_name' => $user['name'],
+                'email' => $user['email'],
+                'phone' => '08111222333',
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         $data = $this->model('TransactionModel');
         $data->user_id = $_SESSION['id'];
-        $data->total_price = $total_price;
+        $data->total_price = array_sum($total_harga);
+        $data->canteen_id = $cart[0]['product_canteen_id'];
         $data->status = 'PENDING';
         $data->created_at = date('Y-m-d H:i:s');
         $data->pin = random_int(100000, 999999);
+        $data->midtrans_id = $midtrans_id;
 
         $id_transaction = $data->insert();
 
@@ -147,6 +188,18 @@ class Cart extends Controller
             $this->model('CartModel')->delete($product['id']);
         }
 
+        $res = new stdClass();
+
+        $res->code = 200;
+        $res->msg = $snapToken;
+        $res->id_transaction = $id_transaction;
+        echo json_encode($res);
+    }
+
+    public function callback_pay()
+    {
+        $this->model('TransactionModel')->updateSuccess($_POST['id']);
+        $res = new stdClass();
         $res->code = 200;
         $res->msg = 'ok';
         echo json_encode($res);

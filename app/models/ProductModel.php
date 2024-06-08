@@ -5,6 +5,8 @@ class ProductModel
     private $table = 'products';
     private $db;
 
+    public $id, $name, $slug, $description, $image, $price, $discount, $stock, $category_id, $canteen_id;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -86,6 +88,27 @@ class ProductModel
         return $this->db->resultSet();
     }
 
+    public function insert()
+    {
+        $this->db->query(
+            'INSERT INTO ' .
+            $this->table .
+            ' (name, slug, description, image, price, discount, stock, category_id, canteen_id) VALUES (:name, :slug, :description, :image, :price, :discount, :stock, :category_id, :canteen_id)',
+        );
+
+        $this->db->bind('name', $this->name);
+        $this->db->bind('slug', $this->slug);
+        $this->db->bind('description', $this->description);
+        $this->db->bind('image', $this->image);
+        $this->db->bind('price', $this->price);
+        $this->db->bind('discount', $this->discount);
+        $this->db->bind('stock', $this->stock);
+        $this->db->bind('category_id', $this->category_id);
+        $this->db->bind('canteen_id', $this->canteen_id);
+
+        return $this->db->execute();
+    }
+
     public function updateStock($id, $stock)
     {
         $query = 'UPDATE ' .
@@ -93,6 +116,43 @@ class ProductModel
             ' SET stock = stock - :stock WHERE id = :id';
         $this->db->query($query);
         $this->db->bind('stock', $stock);
+        $this->db->bind('id', $id);
+
+        return $this->db->execute();
+    }
+
+    public function update()
+    {
+
+        $query = 'UPDATE ' .
+            $this->table .
+            ' SET name = :name, slug = :slug, description = :description, price = :price, discount = :discount, stock = :stock, category_id = :category_id, canteen_id = :canteen_id';
+        if ($this->image != null) {
+            $query .= ', image = :image';
+        }
+        $query .= ' WHERE id = :id';
+        $this->db->query($query);
+
+        $this->db->bind('id', $this->id);
+        $this->db->bind('name', $this->name);
+        $this->db->bind('slug', $this->slug);
+        $this->db->bind('description', $this->description);
+        if ($this->image != null) {
+            $this->db->bind('image', $this->image);
+        }
+        $this->db->bind('price', $this->price);
+        $this->db->bind('discount', $this->discount);
+        $this->db->bind('stock', $this->stock);
+        $this->db->bind('category_id', $this->category_id);
+        $this->db->bind('canteen_id', $this->canteen_id);
+
+        return $this->db->execute();
+    }
+
+    public function delete($id)
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $this->db->query($query);
         $this->db->bind('id', $id);
 
         return $this->db->execute();

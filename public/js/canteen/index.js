@@ -20,5 +20,32 @@ Orders.forEach((order) => {
         <td class="primary">Details</td>
     `;
   tr.innerHTML = trContent;
-  document.querySelector("table tbody").appendChild(tr);
+  let table = document.querySelector("#table-order");
+  if (table) {
+    table.appendChild(tr);
+  }
 });
+
+function convertToSlug(Text) {
+  return Text.toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+}
+
+function nameToSlug(input, target) {
+  target = document.getElementById(target);
+  if (target) {
+    target.value = convertToSlug(input.value);
+  }
+}
+
+function toast(text) {
+  var myToast = Toastify({
+    text: text,
+    duration: 5000,
+    close: true,
+    gravity: "bottom",
+  });
+
+  myToast.showToast();
+}
