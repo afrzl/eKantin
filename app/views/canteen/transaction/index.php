@@ -4,8 +4,8 @@
         <div class="sales">
             <div class="status">
                 <div class="info">
-                    <h3>Total Transaksi</h3>
-                    <h1><?= count($data['transactions']) ?></h1>
+                    <h3>Total Transaksi Sukses</h3>
+                    <h1><?= count($data['transactions_success']) ?></h1>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <option value="CANCEL">CANCEL</option>
             </select>
         </div>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th style="width: 10%">Id Transaksi</th>
@@ -64,7 +64,7 @@
                         <td style="text-align: center"><?= $transaction['status'] ?></td>
                         <td style="align: center;">
                             <a style="display: inline; width: 50px; margin-right: 6px"
-                                href="<?= BASE_URL ?>/c/order/detail/<?= $transaction['id'] ?>" class="btn" id="button"
+                                href="<?= BASE_URL ?>/c/order/<?= $transaction['id'] ?>" class="btn" id="button"
                                 type="button">
                                 Detail
                             </a>

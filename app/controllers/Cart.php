@@ -226,60 +226,62 @@ class Cart extends Controller
         $res->code = 200;
         $res->msg = 'ok';
 
-        $curl = curl_init();
+        if ($transaction['canteen']['phone'] != null) {
+            $curl = curl_init();
 
-        $message = 'Pesanan baru telah diterima dengan rincian : 
+            $message = 'Pesanan baru telah diterima dengan rincian : 
 Id Transaksi : *#' . str_pad($transaction['id'], 6, '0', STR_PAD_LEFT) . '*
 Nama Pemesan : ' . $transaction['user']['name'] . '
 Jenis Pemesanan : ' . ($transaction['jenis_pemesanan'] == 1 ? 'Dine In' : 'Take Away') . '
 ';
-        if ($transaction['jenis_pemesanan'] == 1) {
-            $message .= 'No meja : ' . $transaction['no_meja'] . '
+            if ($transaction['jenis_pemesanan'] == 1) {
+                $message .= 'No meja : ' . $transaction['no_meja'] . '
 ';
-        }
-        $message .= 'Daftar Produk :
+            }
+            $message .= 'Daftar Produk :
 ';
-        foreach ($transaction['products'] as $key => $product) {
-            $message .= $key + 1 . '. ' . $product['product_name'] . ' (' . $product['qty'] . ' item)
+            foreach ($transaction['products'] as $key => $product) {
+                $message .= $key + 1 . '. ' . $product['product_name'] . ' (' . $product['qty'] . ' item)
 ';
-        }
-        $message .= '
+            }
+            $message .= '
 Info pesanan lebih lanjut dapat dilihat pada : ' . BASE_URL . '/c/order/' . $transaction['id'];
 
-        try {
-            curl_setopt_array(
-                $curl,
-                array(
-                    CURLOPT_URL => 'https://api.fonnte.com/send',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS => array(
-                        'target' => $transaction['canteen']['phone'],
-                        'message' => $message,
-                    ),
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: NEDrHqdnsVP-HYk3qmDr'
-                    ),
-                )
-            );
+            try {
+                curl_setopt_array(
+                    $curl,
+                    array(
+                        CURLOPT_URL => 'https://api.fonnte.com/send',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => array(
+                            'target' => $transaction['canteen']['phone'],
+                            'message' => $message,
+                        ),
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: NEDrHqdnsVP-HYk3qmDr'
+                        ),
+                    )
+                );
 
-            $response = curl_exec($curl);
-            if (curl_errno($curl)) {
-                $error_msg = curl_error($curl);
-            }
-            curl_close($curl);
+                $response = curl_exec($curl);
+                if (curl_errno($curl)) {
+                    $error_msg = curl_error($curl);
+                }
+                curl_close($curl);
 
-            if (isset($error_msg)) {
-                echo $error_msg;
+                if (isset($error_msg)) {
+                    echo $error_msg;
+                }
+                echo $response;
+            } catch (Exception $e) {
+                echo $e;
             }
-            echo $response;
-        } catch (Exception $e) {
-            echo $e;
         }
 
         echo json_encode($res);

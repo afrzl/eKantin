@@ -515,7 +515,7 @@ main .recent-orders h2 {
   margin-bottom: 0.8rem;
 }
 
-main .recent-orders table {
+main .recent-orders .table {
   background-color: var(--color-white);
   width: 100%;
   padding: var(--card-padding);
@@ -525,17 +525,17 @@ main .recent-orders table {
   transition: all 0.3s ease;
 }
 
-main .recent-orders table:hover {
+main .recent-orders .table:hover {
   box-shadow: none;
 }
 
-main table tbody td {
+main .table tbody td {
   height: 2.8rem;
   border-bottom: 1px solid var(--color-light);
   color: var(--color-dark-variant);
 }
 
-main table tbody tr:last-child td {
+main .table tbody tr:last-child td {
   border: none;
 }
 
@@ -772,17 +772,17 @@ header .reminders .add-reminder div {
     flex-basis: 40%;
   }
 
-  main .recent-orders table {
+  main .recent-orders .table {
     width: 100%;
   }
 
-  main table thead tr th:last-child,
-  main table thead tr th:first-child {
+  main .table thead tr th:last-child,
+  main .table thead tr th:first-child {
     display: none;
   }
 
-  main table tbody tr td:last-child,
-  main table tbody tr td:first-child {
+  main .table tbody tr td:last-child,
+  main .table tbody tr td:first-child {
     display: none;
   }
 }
@@ -858,7 +858,7 @@ header .reminders .add-reminder div {
     width: 100%;
   }
 
-  main .recent-orders table {
+  main .recent-orders .table {
     width: 100%;
     margin: 0;
   }

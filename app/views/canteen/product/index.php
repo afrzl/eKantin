@@ -19,7 +19,7 @@
             <span style="font-size: 20px" class="material-icons-sharp">add</span>
             <span>Tambah Produk</span>
         </a>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th style="width: 3%">No.</th>
