@@ -49,3 +49,21 @@ function toast(text) {
 
   myToast.showToast();
 }
+
+function getStatus(input, url) {
+  xhttp = new XMLHttpRequest();
+  const status = input.value;
+  let body = "";
+  body += "status=" + encodeURIComponent(status);
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let tbody = document.getElementById("tbody-order");
+      tbody.innerHTML = this.responseText;
+    }
+  };
+
+  xhttp.open("POST", url, false);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(body);
+}

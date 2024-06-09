@@ -30,6 +30,20 @@ class Cart extends Controller
         $this->load('footer');
     }
 
+    public function checkout($canteen_id)
+    {
+        $data['title'] = 'Cart';
+        $data['products'] = $this->model('CartModel')->getCartProductsByCanteenId($_SESSION['id'], $canteen_id);
+
+        foreach ($data['products'] as $key => $cart) {
+            $data['product'][$key]['canteen'] = $this->model('UserModel')->getUserById($cart['product_canteen_id']);
+        }
+
+        $this->load('header');
+        $this->view('cart/checkout', $data);
+        $this->load('footer');
+    }
+
     public function store()
     {
         $cart = $this->model('CartModel')->getCartByUserIdProductId($_POST['user_id'], $_POST['product_id']);
@@ -113,6 +127,7 @@ class Cart extends Controller
                 $total_harga[$key][$i] *= $total_item[$key][$i];
             }
 
+            $res->canteen_id[$key] = $canteen[0]['product_canteen_id'];
             $res->total_item[$key] = array_sum($total_item[$key]);
             $res->total_harga[$key] = number_format(array_sum($total_harga[$key]), 0, '', '.');
         }
@@ -168,9 +183,13 @@ class Cart extends Controller
         $data->total_price = array_sum($total_harga);
         $data->canteen_id = $cart[0]['product_canteen_id'];
         $data->status = 'PENDING';
+        $data->jenis_pemesanan = $_POST['jenis_pemesanan'];
+        if ($_POST['jenis_pemesanan'] == 1) {
+            $data->no_meja = $_POST['no_meja'];
+        }
         $data->created_at = date('Y-m-d H:i:s');
         $data->pin = random_int(100000, 999999);
-        $data->midtrans_id = $midtrans_id;
+        $data->midtrans_id = $snapToken;
 
         $id_transaction = $data->insert();
 
@@ -198,10 +217,71 @@ class Cart extends Controller
 
     public function callback_pay()
     {
-        $this->model('TransactionModel')->updateSuccess($_POST['id']);
+        $this->model('TransactionModel')->updateSuccess($_POST['id'], 'ON PROCESS');
+        $transaction = $this->model('TransactionModel')->find($_POST['id']);
+        $transaction['canteen'] = $this->model('UserModel')->getUserById($transaction['canteen_id']);
+        $transaction['user'] = $this->model('UserModel')->getUserById($transaction['user_id']);
+        $transaction['products'] = $this->model('TransactionDetailModel')->getTransactionDetailByTransactionId($transaction['id']);
         $res = new stdClass();
         $res->code = 200;
         $res->msg = 'ok';
+
+        $curl = curl_init();
+
+        $message = 'Pesanan baru telah diterima dengan rincian : 
+Id Transaksi : *#' . str_pad($transaction['id'], 6, '0', STR_PAD_LEFT) . '*
+Nama Pemesan : ' . $transaction['user']['name'] . '
+Jenis Pemesanan : ' . ($transaction['jenis_pemesanan'] == 1 ? 'Dine In' : 'Take Away') . '
+';
+        if ($transaction['jenis_pemesanan'] == 1) {
+            $message .= 'No meja : ' . $transaction['no_meja'] . '
+';
+        }
+        $message .= 'Daftar Produk :
+';
+        foreach ($transaction['products'] as $key => $product) {
+            $message .= $key + 1 . '. ' . $product['product_name'] . ' (' . $product['qty'] . ' item)
+';
+        }
+        $message .= '
+Info pesanan lebih lanjut dapat dilihat pada : ' . BASE_URL . '/c/order/' . $transaction['id'];
+
+        try {
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'https://api.fonnte.com/send',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => array(
+                        'target' => $transaction['canteen']['phone'],
+                        'message' => $message,
+                    ),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: NEDrHqdnsVP-HYk3qmDr'
+                    ),
+                )
+            );
+
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                $error_msg = curl_error($curl);
+            }
+            curl_close($curl);
+
+            if (isset($error_msg)) {
+                echo $error_msg;
+            }
+            echo $response;
+        } catch (Exception $e) {
+            echo $e;
+        }
+
         echo json_encode($res);
     }
 }

@@ -38,9 +38,6 @@
                         <h2>eKantin</h2>
                     </a>
                     <div class="header-user-actions">
-                        <a href="#" class="action-btn">
-                            <ion-icon style="width: 20px" name="heart-outline"></ion-icon> <span class="count">0</span>
-                        </a>
                         <a href="<?= BASE_URL ?>/cart" class="action-btn">
                             <ion-icon style="width: 20px" name="bag-handle-outline"></ion-icon> <span
                                 class="count bag-count"><?= isset(

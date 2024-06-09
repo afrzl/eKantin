@@ -28,7 +28,9 @@
             </span>
             <h3>Kelola Produk</h3>
         </a>
-        <a href="#">
+        <a href="<?= BASE_URL ?>/c/order" <?php if ($data['page'] == 'order'):
+              echo 'class="active"';
+          endif ?>>
             <span class="material-icons-sharp">
                 receipt_long
             </span>

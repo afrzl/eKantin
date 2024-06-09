@@ -581,6 +581,25 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: var(--border-radius-md);
 }
 
+input {
+  font-size: var(--fs-7);
+  color: var(--onyx);
+  padding: 10px 15px;
+  border: 1px solid var(--cultured);
+  -webkit-border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-md);
+}
+
+select {
+  font-size: var(--fs-7);
+  color: var(--onyx);
+  padding: 10px 15px;
+  padding-right: 50px;
+  border: 1px solid var(--cultured);
+  -webkit-border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-md);
+}
+
 .quantity-field {
   font-size: var(--fs-7);
   color: var(--onyx);
@@ -1620,6 +1639,27 @@ body::-webkit-scrollbar-thumb:hover {
   -webkit-transition: var(--transition-timing);
   -o-transition: var(--transition-timing);
   transition: var(--transition-timing);
+  justify-content: center;
+  width: 7rem;
+}
+
+.show-pin {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 15px;
+  color: var(--ocean-green);
+  font-size: var(--fs-9);
+  font-weight: var(--weight-700);
+  text-transform: uppercase;
+  -webkit-border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--ocean-green);
+  -webkit-transition: var(--transition-timing);
+  -o-transition: var(--transition-timing);
+  transition: var(--transition-timing);
+  justify-content: center;
+  width: 7rem;
 }
 
 .pay-cart-btn:hover {

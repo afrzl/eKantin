@@ -17,6 +17,14 @@
                 </div>
             </div>
         </div>
+        <div class="visits">
+            <div class="status">
+                <div class="info">
+                    <h3>Total Transaksi</h3>
+                    <h1><?= $data['total_transaksi'] ?></h1>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- End of Analyses -->
 </div>

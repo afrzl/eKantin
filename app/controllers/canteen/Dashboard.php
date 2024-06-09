@@ -14,6 +14,9 @@ class Dashboard extends Controller
         $price = array_column($penjualan, 'price');
         $data['total_penjualan'] = array_sum($price);
 
+        $transaksi = $this->model('TransactionModel')->getTransactionsSuccessByCanteenId($_SESSION['id']);
+        $data['total_transaksi'] = count($transaksi);
+
         $this->views('canteen/dashboard/index', $data);
     }
 }

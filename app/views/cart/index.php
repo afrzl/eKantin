@@ -17,7 +17,7 @@
                                         <div class="showcase-order" id="showcase-order-<?= $key ?>">
                                             <div class="order-title">
                                                 <a href="<?= BASE_URL ?>/order/<?= $cart[0]['canteen']['email'] ?>"
-                                                    class="text-transaction">Kantin
+                                                    class="text-transaction">
                                                     <?= $cart[0]['canteen']['name'] ?></b>
                                                 </a>
                                             </div>
@@ -76,10 +76,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="showcase-content" style="width: 15rem">
-                                                    <button class="pay-cart-btn"
-                                                        onclick="pay('<?= $cart[0]['canteen']['id'] ?>')">
-                                                        <ion-icon name="card-outline"></ion-icon> Bayar
-                                                    </button>
+                                                    <a href="<?= BASE_URL ?>/cart/checkout/<?= $cart[0]['canteen']['id'] ?>"
+                                                        class="pay-cart-btn">
+                                                        <ion-icon name="card-outline"></ion-icon> Checkout
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +204,7 @@
 
                             xhttpSuccessPay.onreadystatechange = function () {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    console.log(this.responseText);
+                                    // console.log(this.responseText);
                                     let res = JSON.parse(this.responseText);
                                     if (res.code === 200) {
                                         window.location = '<?= BASE_URL ?>/order';
@@ -218,7 +218,7 @@
                                 "application/x-www-form-urlencoded");
                             xhttpSuccessPay.send(body);
 
-                            console.log(result);
+                            // console.log(result);
                         },
                         onPending: function (result) {
                             /* You may add your own implementation here */
