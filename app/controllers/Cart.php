@@ -8,6 +8,10 @@ class Cart extends Controller
 {
     public function index()
     {
+        if (!isset($_SESSION['id'])) {
+            header("Location: " . BASE_URL . "/login");
+        }
+
         $data['title'] = 'Cart';
         $products = $this->model('CartModel')->getCartProducts($_SESSION['id']);
 

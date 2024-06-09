@@ -92,21 +92,30 @@
                     </div>
                 </div>
             </div>
-            <div class="mobile-bottom-navigation"> <button class="action-btn" data-mobile-menu-open-btn>
+            <div class="mobile-bottom-navigation">
+                <button class="action-btn" data-mobile-menu-open-btn>
                     <ion-icon name="menu-outline"></ion-icon>
-                </button> <a href="<?= BASE_URL ?>/cart" class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon> <span class="count bag-count"><?= isset(
+                </button>
+                <a href="<?= BASE_URL ?>/cart" class="action-btn">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span class="count bag-count"><?= isset(
                         $_SESSION['id']
                     )
-                        ? $cart_count
+                        ? ($cart_count
+                            ? $cart_count
+                            : '0')
                         : '0' ?></span>
-                </a> <button class="action-btn">
+                </a>
+                <a href="<?= BASE_URL ?>" class="action-btn">
                     <ion-icon name="home-outline"></ion-icon>
-                </button> <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon> <span class="count">0</span>
-                </button> <button class="action-btn" data-mobile-menu-open-btn>
+                </a>
+                <a href="<?= BASE_URL ?>/order" class="action-btn">
+                    <ion-icon name="list-outline"></ion-icon>
+                </a>
+                <button class="action-btn" data-mobile-menu-open-btn>
                     <ion-icon name="grid-outline"></ion-icon>
-                </button> </div>
+                </button>
+            </div>
             <nav class="mobile-navigation-menu  has-scrollbar" data-mobile-menu>
                 <div class="menu-top">
                     <h2 class="menu-title">Menu</h2> <button class="menu-close-btn" data-mobile-menu-close-btn>
@@ -124,21 +133,18 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <?php if(isset($_SESSION['id'])) {
+                            if ($_SESSION['role'] == 'canteen') { ?>
+                                <li class="menu-category"> <a href="<?= BASE_URL ?>/c/dashboard" class="menu-title">Halaman Kantin</a> </li>
+                    <?php } } ?>
                 </ul>
                 <div class="menu-bottom">
                     <ul class="menu-social-container">
-                        <li> <a href="#" class="social-link">
-                                <ion-icon name="logo-facebook"></ion-icon>
-                            </a> </li>
-                        <li> <a href="#" class="social-link">
-                                <ion-icon name="logo-twitter"></ion-icon>
-                            </a> </li>
-                        <li> <a href="#" class="social-link">
-                                <ion-icon name="logo-instagram"></ion-icon>
-                            </a> </li>
-                        <li> <a href="#" class="social-link">
-                                <ion-icon name="logo-linkedin"></ion-icon>
-                            </a> </li>
+                        <?php if (isset($_SESSION['id'])) { ?>
+                            <li class="menu-category"> <a href="<?= BASE_URL ?>/login/out" class="menu-title">Logout</a> </li>
+                        <?php } else { ?>
+                            <li class="menu-category"> <a href="<?= BASE_URL ?>/login" class="menu-title">Login</a> </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </nav>
