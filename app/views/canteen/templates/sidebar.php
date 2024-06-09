@@ -12,59 +12,29 @@
     </div>
 
     <div class="sidebar">
-        <a href="#" class="active">
+        <a href="<?= BASE_URL ?>/c/dashboard" <?php if ($data['page'] == 'dashboard'):
+              echo 'class="active"';
+          endif ?>>
             <span class="material-icons-sharp">
                 dashboard
             </span>
             <h3>Dashboard</h3>
         </a>
-        <a href="#">
+        <a href="<?= BASE_URL ?>/c/product" <?php if ($data['page'] == 'products'):
+              echo 'class="active"';
+          endif ?>>
             <span class="material-icons-sharp">
                 inventory_2
             </span>
             <h3>Kelola Produk</h3>
         </a>
-        <a href="#">
+        <a href="<?= BASE_URL ?>/c/order" <?php if ($data['page'] == 'order'):
+              echo 'class="active"';
+          endif ?>>
             <span class="material-icons-sharp">
                 receipt_long
             </span>
             <h3>Kelola Pesanan</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                insights
-            </span>
-            <h3>Analytics</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                mail_outline
-            </span>
-            <h3>Tickets</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                inventory
-            </span>
-            <h3>Sale List</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                report_gmailerrorred
-            </span>
-            <h3>Reports</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                settings
-            </span>
-            <h3>Settings</h3>
-        </a>
-        <a href="#">
-            <span class="material-icons-sharp">
-                add
-            </span>
-            <h3>New Login</h3>
         </a>
         <a href="<?= BASE_URL ?>/login/out">
             <span class="material-icons-sharp">

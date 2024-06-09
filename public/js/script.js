@@ -66,3 +66,12 @@ for (let i = 0; i < accordionBtn.length; i++) {
     this.classList.toggle("active");
   });
 }
+
+function toast(text) {
+  var myToast = Toastify({
+    text: text,
+    duration: 3000,
+  });
+
+  myToast.showToast();
+}

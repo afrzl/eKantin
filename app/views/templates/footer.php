@@ -9,6 +9,7 @@
 </footer>
 
 <!--- custom js link  -->
+<script src="<?= ASSETS ?>/js/toastify.js"></script>
 <script src="<?= ASSETS ?>/js/script.js"></script>
 <!--- ionicon link  -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

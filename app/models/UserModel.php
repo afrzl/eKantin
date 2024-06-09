@@ -55,7 +55,7 @@ class UserModel
     public function getUserById($id)
     {
         $this->db->query(
-            'SELECT * FROM ' . $this->table . ' WHERE id=:id'
+            'SELECT id, email, name, phone, role FROM ' . $this->table . ' WHERE id=:id'
         );
         $this->db->bind('id', $id);
 
