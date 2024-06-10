@@ -15,14 +15,7 @@
                                         style="width: 100%" alt="<?= $data['product']['name'] ?>" class="showcase-img">
                                 </div>
                                 <div class="showcase-content">
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </div>
-                                    <a href="#">
+                                    <a>
                                         <h3 class="showcase-title"><?= $data['product']['name'] ?></h3>
                                     </a>
                                     <p class="showcase-desc">

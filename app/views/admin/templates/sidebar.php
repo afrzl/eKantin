@@ -28,7 +28,15 @@
             </span>
             <h3>Kelola User</h3>
         </a>
-        <a href="<?= BASE_URL ?>/c/product" <?php if ($data['page'] == 'products'):
+        <a href="<?= BASE_URL ?>/a/category" <?php if ($data['page'] == 'categories'):
+              echo 'class="active"';
+          endif ?>>
+            <span class="material-icons-sharp">
+                category
+            </span>
+            <h3>Kelola Kategori</h3>
+        </a>
+        <a href="<?= BASE_URL ?>/a/product" <?php if ($data['page'] == 'products'):
               echo 'class="active"';
           endif ?>>
             <span class="material-icons-sharp">
@@ -36,7 +44,7 @@
             </span>
             <h3>Kelola Produk</h3>
         </a>
-        <a href="<?= BASE_URL ?>/c/order" <?php if ($data['page'] == 'order'):
+        <a href="<?= BASE_URL ?>/a/order" <?php if ($data['page'] == 'order'):
               echo 'class="active"';
           endif ?>>
             <span class="material-icons-sharp">

@@ -550,7 +550,7 @@ main .recent-orders a {
 main .recent-orders .btn {
   margin: 1rem auto;
   display: flex;
-  width: 10rem;
+  width: auto;
   color: var(--color-white);
   padding: 0.5rem;
   gap: 5px;

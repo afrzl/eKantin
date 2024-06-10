@@ -83,6 +83,14 @@ class TransactionModel
         return $this->db->resultSet();
     }
 
+    public function getTransactionsByStatus($status)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE status = :status ORDER BY id DESC');
+        $this->db->bind('status', $status);
+
+        return $this->db->resultSet();
+    }
+
     public function getTransactionsByCanteenIdAndStatus($canteen_id, $status)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE canteen_id = :canteen_id AND status = :status ORDER BY id DESC');

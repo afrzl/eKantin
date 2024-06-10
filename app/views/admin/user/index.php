@@ -34,26 +34,26 @@
                 <?php
                 $no = 1;
                 foreach ($data['users'] as $user) { ?>
-                <tr>
-                    <td style="text-align: center"><?= $no++ ?>.</td>
-                    <td style="text-align: left"><?= $user['email'] ?></td>
-                    <td style="text-align: left"><?= $user['name'] ?></td>
-                    <td style="text-align: center"><?= $user['phone'] ?></td>
-                    <td style="text-align: center"><?= $user['role'] ?></td>
-                    <td style="align-items: center;">
-                        <div style="display: flex; gap: 5px">
-                            <a style="width: 30px" href="<?= BASE_URL ?>/a/user/edit/<?= $user['id'] ?>"
-                                class="btn btn-primary" id="button" type="button">
-                                <span style="font-size: 15px" class="material-icons-sharp">edit</span>
-                            </a>
-                            <button
-                                onclick="deleteUser('<?= $user['id'] ?>', '<?= BASE_URL ?>/a/user/destroy/<?= $user['id'] ?>')"
-                                style="width: 30px" class="btn btn-danger" id="button" type="button">
-                                <span style="font-size: 15px" class="material-icons-sharp">delete</span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="text-align: center"><?= $no++ ?>.</td>
+                        <td style="text-align: left"><?= $user['email'] ?></td>
+                        <td style="text-align: left"><?= $user['name'] ?></td>
+                        <td style="text-align: center"><?= $user['phone'] ?></td>
+                        <td style="text-align: center"><?= $user['role'] ?></td>
+                        <td style="align-items: center;">
+                            <div style="display: flex; gap: 5px">
+                                <a style="width: 30px" href="<?= BASE_URL ?>/a/user/edit/<?= $user['id'] ?>"
+                                    class="btn btn-primary" id="button" type="button">
+                                    <span style="font-size: 15px" class="material-icons-sharp">edit</span>
+                                </a>
+                                <button
+                                    onclick="deleteUser('<?= $user['id'] ?>', '<?= BASE_URL ?>/a/user/destroy/<?= $user['id'] ?>')"
+                                    style="width: 30px" class="btn btn-danger" id="button" type="button">
+                                    <span style="font-size: 15px" class="material-icons-sharp">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>

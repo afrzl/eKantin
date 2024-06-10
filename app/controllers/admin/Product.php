@@ -4,24 +4,21 @@ class Product extends Controller
 {
     public function index()
     {
-        if ($_SESSION['role'] != 'CANTEEN') {
+        if ($_SESSION['role'] != 'ADMIN') {
             header("Location: " . BASE_URL);
         }
 
         $data['page'] = 'products';
-        $data['title'] = 'Daftar Produk';
-        $data['products'] = $this->model('ProductModel')->getProductsByCanteen($_SESSION['id']);
-        $this->views('canteen/product/index', $data);
+        $data['title'] = 'Produk';
+        $data['products'] = $this->model('ProductModel')->getAllProducts();
+
+        $this->view_admin('admin/product/index', $data);
     }
 
-    public function create($product = null)
+    public function create()
     {
         if ($_SESSION['role'] != 'CANTEEN') {
             header("Location: " . BASE_URL);
-        }
-
-        if ($product != null) {
-            $data['product'] = $product;
         }
 
         $data['page'] = 'products';
@@ -54,23 +51,6 @@ class Product extends Controller
         $file_name = time() . '.' . $ekstensi;
         $ukuran = $_FILES['image']['size'];
         $file_tmp = $_FILES['image']['tmp_name'];
-        if ($_FILES['image']['name'] != "") {
-            $product->image = $file_name;
-        }
-
-        if (!$product->validation()) {
-            $product = (array) $product;
-            $_SESSION['flash'] = 'Harap isi semua data';
-            $this->create($product);
-            return;
-        }
-
-        if (!empty($this->model('ProductModel')->getProductBySlug($_POST['slug']))) {
-            $product = (array) $product;
-            $_SESSION['flash'] = 'Slug sudah ada';
-            $this->create($product);
-            return;
-        }
 
         if (in_array($ekstensi, $file_type) === true) {
             if ($ukuran < 2048000) {
@@ -93,7 +73,7 @@ class Product extends Controller
         header("Location: " . BASE_URL . "/c/product");
     }
 
-    public function edit($id, $product = null)
+    public function edit($id)
     {
         if ($_SESSION['role'] != 'CANTEEN') {
             header("Location: " . BASE_URL);
@@ -102,11 +82,7 @@ class Product extends Controller
         $data['page'] = 'products';
         $data['title'] = 'Edit Produk';
         $data['subpage'] = 'edit';
-        if ($product != null) {
-            $data['product'] = $product;
-        } else {
-            $data['product'] = $this->model('ProductModel')->getProductById($id);
-        }
+        $data['product'] = $this->model('ProductModel')->getProductById($id);
         if (!$data['product']) {
             echo '404 - not found';
             return;
@@ -126,8 +102,6 @@ class Product extends Controller
         }
 
         $product = $this->model('ProductModel')->getProductById($id);
-        $image = $product['image'];
-        $slug = $product['slug'];
         if (!empty($product)) {
             $product = $this->model('ProductModel');
         }
@@ -140,21 +114,6 @@ class Product extends Controller
         $product->discount = 0;
         $product->category_id = $_POST['category_id'];
         $product->canteen_id = $_SESSION['id'];
-        $product->image = $image;
-
-        if (!$product->validation()) {
-            $product = (array) $product;
-            $_SESSION['flash'] = 'Harap isi semua data';
-            $this->edit($id, $product);
-            return;
-        }
-
-        if ($slug != $_POST['slug'] && !empty($this->model('ProductModel')->getProductBySlug($_POST['slug']))) {
-            $product = (array) $product;
-            $_SESSION['flash'] = 'Slug sudah ada';
-            $this->edit($id, $product);
-            return;
-        }
 
         if ($_FILES['image']['name'] != "") {
             $file_type = array('png', 'jpg', 'jpeg');
@@ -189,8 +148,9 @@ class Product extends Controller
 
     public function destroy()
     {
-        if ($_SESSION['role'] != 'CANTEEN') {
+        if ($_SESSION['role'] != 'ADMIN') {
             header("Location: " . BASE_URL);
+            return;
         }
 
         $this->model('ProductModel')->delete($_POST['id']);

@@ -5,7 +5,7 @@
             <div class="status">
                 <div class="info">
                     <h3>Total Transaksi Sukses</h3>
-                    <h1><?= count($data['transactions_success']) ?></h1>
+                    <h1><?= count($data['transactions']) ?></h1>
                 </div>
             </div>
         </div>
@@ -19,10 +19,10 @@
             <div style="width: 6rem">
                 <label for="name">Status :</label>
             </div>
-            <select name="status" onchange="getStatus(this, '<?= BASE_URL ?>/c/order/getByStatus')" id="">
+            <select name="status" onchange="getStatus(this, '<?= BASE_URL ?>/a/order/getByStatus')" id="">
                 <option value="">SEMUA</option>
-                <option selected value="ON PROCESS">ON PROCESS</option>
-                <option value="SUCCESS">SUCCESS</option>
+                <option value="ON PROCESS">ON PROCESS</option>
+                <option selected value="SUCCESS">SUCCESS</option>
                 <option value="PENDING">PENDING</option>
                 <option value="CANCEL">CANCEL</option>
             </select>
@@ -42,12 +42,12 @@
             </thead>
             <tbody id="tbody-order">
                 <?php foreach ($data['transactions'] as $transaction) { ?>
-                    <tr>
-                        <td style="text-align: center">#<?= str_pad($transaction['id'], 6, '0', STR_PAD_LEFT) ?></td>
-                        <td style="align: center"><?= $transaction['user']['name'] ?></td>
-                        <td style="text-align: center">Rp<?= number_format($transaction['total_price'], 0, '', '.') ?></td>
-                        <td style="text-align: center">
-                            <?php switch ($transaction['jenis_pemesanan']) {
+                <tr>
+                    <td style="text-align: center">#<?= str_pad($transaction['id'], 6, '0', STR_PAD_LEFT) ?></td>
+                    <td style="align: center"><?= $transaction['user']['name'] ?></td>
+                    <td style="text-align: center">Rp<?= number_format($transaction['total_price'], 0, '', '.') ?></td>
+                    <td style="text-align: center">
+                        <?php switch ($transaction['jenis_pemesanan']) {
                                 case '1':
                                     echo 'Dine In';
                                     break;
@@ -58,18 +58,18 @@
                                 default:
                                     break;
                             } ?>
-                        </td>
-                        <td style="text-align: center"><?= $transaction['no_meja'] ?></td>
-                        <td style="text-align: center"><?= $transaction['created_at'] ?></td>
-                        <td style="text-align: center"><?= $transaction['status'] ?></td>
-                        <td style="align: center;">
-                            <a style="display: inline; width: 50px; margin-right: 6px"
-                                href="<?= BASE_URL ?>/c/order/<?= $transaction['id'] ?>" class="btn" id="button"
-                                type="button">
-                                Detail
-                            </a>
-                        </td>
-                    </tr>
+                    </td>
+                    <td style="text-align: center"><?= $transaction['no_meja'] ?></td>
+                    <td style="text-align: center"><?= $transaction['created_at'] ?></td>
+                    <td style="text-align: center"><?= $transaction['status'] ?></td>
+                    <td style="align: center;">
+                        <a style="display: inline; width: 50px; margin-right: 6px"
+                            href="<?= BASE_URL ?>/a/order/<?= $transaction['id'] ?>" class="btn btn-primary" id="button"
+                            type="button">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>

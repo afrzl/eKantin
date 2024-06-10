@@ -10,22 +10,6 @@ closeBtn.addEventListener("click", () => {
   sideMenu.style.display = "none";
 });
 
-Orders.forEach((order) => {
-  const tr = document.createElement("tr");
-  const trContent = `
-        <td>${order.productName}</td>
-        <td>${order.productNumber}</td>
-        <td>${order.paymentStatus}</td>
-        <td class="${order.status === "Declined" ? "danger" : order.status === "Pending" ? "warning" : "primary"}">${order.status}</td>
-        <td class="primary">Details</td>
-    `;
-  tr.innerHTML = trContent;
-  let table = document.querySelector("#table-order");
-  if (table) {
-    table.appendChild(tr);
-  }
-});
-
 function convertToSlug(Text) {
   return Text.toLowerCase()
     .replace(/ /g, "-")
@@ -58,6 +42,7 @@ function getStatus(input, url) {
 
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
       let tbody = document.getElementById("tbody-order");
       tbody.innerHTML = this.responseText;
     }

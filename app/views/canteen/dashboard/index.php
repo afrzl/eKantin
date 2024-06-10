@@ -20,7 +20,7 @@
         <div class="visits">
             <div class="status">
                 <div class="info">
-                    <h3>Total Transaksi</h3>
+                    <h3>Total Transaksi Sukses</h3>
                     <h1><?= $data['total_transaksi'] ?></h1>
                 </div>
             </div>

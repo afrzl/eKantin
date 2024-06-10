@@ -14,7 +14,7 @@ class ProductModel
 
     public function getAllProducts()
     {
-        $this->db->query('SELECT p.id, p.name, p.slug, p.description, p.image, p.price, p.discount, p.stock, p.category_id, c1.name as category_name, c1.slug as category_slug FROM ' . $this->table . ' p JOIN categories c1 ON c1.id = p.category_id ORDER BY p.stock DESC, p.name ASC');
+        $this->db->query('SELECT p.id, p.name, p.slug, p.description, p.image, p.price, p.discount, p.stock, p.category_id, c1.name as category_name, c1.slug as category_slug, c2.name as canteen_name FROM ' . $this->table . ' p JOIN categories c1 ON c1.id = p.category_id JOIN users c2 ON c2.id = p.canteen_id ORDER BY p.stock DESC, p.name ASC');
 
         return $this->db->resultSet();
     }
@@ -156,5 +156,14 @@ class ProductModel
         $this->db->bind('id', $id);
 
         return $this->db->execute();
+    }
+
+    public function validation()
+    {
+        if ($this->name == '' || $this->slug == '' || $this->description == '' || $this->image == '' || $this->price == '' || $this->discount == '' || $this->stock == '' || $this->category_id == '' || $this->canteen_id == '') {
+            return false;
+        }
+
+        return true;
     }
 }

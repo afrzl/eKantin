@@ -10,8 +10,8 @@ class Dashboard extends Controller
         $data['page'] = 'dashboard';
         $data['title'] = 'Dashboard';
         $data['products'] = $this->model('ProductModel')->getAllProducts();
-        $penjualan = $this->model('TransactionDetailModel')->getAllTransactionDetail('SUCCESS');
-        $price = array_column($penjualan, 'price');
+        $penjualan = $this->model('TransactionModel')->getTransactionsByStatus('SUCCESS');
+        $price = array_column($penjualan, 'total_price');
         $data['total_penjualan'] = array_sum($price);
 
         $transaksi = $this->model('TransactionModel')->getAllTransaction('SUCCESS');

@@ -64,7 +64,7 @@
                         <td style="text-align: center"><?= $transaction['status'] ?></td>
                         <td style="align: center;">
                             <a style="display: inline; width: 50px; margin-right: 6px"
-                                href="<?= BASE_URL ?>/c/order/<?= $transaction['id'] ?>" class="btn" id="button"
+                                href="<?= BASE_URL ?>/c/order/<?= $transaction['id'] ?>" class="btn btn-primary" id="button"
                                 type="button">
                                 Detail
                             </a>
@@ -73,7 +73,6 @@
                 <?php } ?>
             </tbody>
         </table>
-        <a href="#">Show All</a>
     </div>
     <!-- End of Recent Orders -->
 </div>

@@ -10,11 +10,10 @@ class Dashboard extends Controller
         $data['page'] = 'dashboard';
         $data['title'] = 'Dashboard';
         $data['products'] = $this->model('ProductModel')->getProductsByCanteen($_SESSION['id']);
-        $penjualan = $this->model('TransactionDetailModel')->getTransactionDetailByCanteenId($_SESSION['id']);
-        $price = array_column($penjualan, 'price');
+        $transaksi = $this->model('TransactionModel')->getTransactionsSuccessByCanteenId($_SESSION['id']);
+        $price = array_column($transaksi, 'total_price');
         $data['total_penjualan'] = array_sum($price);
 
-        $transaksi = $this->model('TransactionModel')->getTransactionsSuccessByCanteenId($_SESSION['id']);
         $data['total_transaksi'] = count($transaksi);
 
         $this->views('canteen/dashboard/index', $data);

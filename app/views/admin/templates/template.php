@@ -55,6 +55,76 @@
     ?>
 
     <script>
+    function deleteProduct(id, url) {
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Apakah kamu yakin akan menghapus produk ini?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                xhttp = new XMLHttpRequest();
+
+                let body = "";
+                body += "id=" + encodeURIComponent(id);
+
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let res = JSON.parse(xhttp.responseText);
+                        if (res.code === 200) {
+                            window.location.reload();
+                        } else {
+                            alert(res.msg);
+                        }
+                    }
+                };
+
+                xhttp.open("POST", url, false);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(body);
+            }
+        });
+    }
+
+    function deleteCategory(id, url) {
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Apakah kamu yakin akan menghapus kategori ini?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                xhttp = new XMLHttpRequest();
+
+                let body = "";
+                body += "id=" + encodeURIComponent(id);
+
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let res = JSON.parse(xhttp.responseText);
+                        if (res.code === 200) {
+                            window.location.reload();
+                        } else {
+                            alert(res.msg);
+                        }
+                    }
+                };
+
+                xhttp.open("POST", url, false);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(body);
+            }
+        });
+    }
+
     function deleteUser(id, url) {
         Swal.fire({
             title: "Konfirmasi",

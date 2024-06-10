@@ -15,7 +15,7 @@
     <!-- Recent Orders Table -->
     <div class="recent-orders" style="overflow: auto;">
         <h2>Data Produk</h2>
-        <a href="<?= BASE_URL ?>/c/product/create" class="btn" id="button" type="button">
+        <a href="<?= BASE_URL ?>/c/product/create" class="btn btn-success" id="button" type="button">
             <span style="font-size: 20px" class="material-icons-sharp">add</span>
             <span>Tambah Produk</span>
         </a>
@@ -46,14 +46,14 @@
                         <td style="text-align: center"><?= $product['stock'] ?></td>
                         <td style="align: center;">
                             <a style="display: inline; width: 30px; margin-right: 6px"
-                                href="<?= BASE_URL ?>/c/product/edit/<?= $product['id'] ?>" class="btn" id="button"
-                                type="button">
+                                href="<?= BASE_URL ?>/c/product/edit/<?= $product['id'] ?>" class="btn btn-primary"
+                                id="button" type="button">
                                 <span style="font-size: 15px" class="material-icons-sharp">edit</span>
                             </a>
                             <button
                                 onclick="deleteProduct('<?= $product['id'] ?>', '<?= BASE_URL ?>/c/product/destroy/<?= $product['id'] ?>')"
                                 style="display: inline; width: 30px; margin-right: 6px"
-                                href="<?= BASE_URL ?>/c/product/create" class="btn" id="button" type="button">
+                                href="<?= BASE_URL ?>/c/product/create" class="btn btn-danger" id="button" type="button">
                                 <span style="font-size: 15px" class="material-icons-sharp">delete</span>
                             </button>
                         </td>
@@ -61,7 +61,6 @@
                 <?php } ?>
             </tbody>
         </table>
-        <a href="#">Show All</a>
     </div>
     <!-- End of Recent Orders -->
 </div>

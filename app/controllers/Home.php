@@ -4,6 +4,7 @@ class Home extends Controller
     public function index()
     {
         $data['title'] = 'Landing Page';
+        $data['page'] = 'home';
         $data['subtitle'] = 'Produk eKantin STIS';
         $data['canteen_id'] = '';
         $data['category_id'] = '';
@@ -37,7 +38,7 @@ class Home extends Controller
                 $res .= '<p class="showcase-badge angle black">habis</p>';
             }
 
-            $res .= '</a></div><div class="showcase-content"><a href="' . BASE_URL . '/category/' . $product['category_slug'] . '" class="showcase-category">' . $product['category_name'] . '</a><a href="' . BASE_URL . '/product/' . $product['slug'] . '"><h3 class="showcase-title">' . $product['name'] . '</h3></a><div class="showcase-rating"><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star-outline"></ion-icon><ion-icon name="star-outline"></ion-icon></div><div class="price-box"><p class="price">Rp' . number_format($product['price'], 0, '', '.') . '</p></div></div></div>';
+            $res .= '</a></div><div class="showcase-content"><a href="' . BASE_URL . '/category/' . $product['category_slug'] . '" class="showcase-category">' . $product['category_name'] . '</a><a href="' . BASE_URL . '/product/' . $product['slug'] . '"><h3 class="showcase-title">' . $product['name'] . '</h3></a><div class="price-box"><p class="price">Rp' . number_format($product['price'], 0, '', '.') . '</p></div></div></div>';
         }
         echo $res;
     }

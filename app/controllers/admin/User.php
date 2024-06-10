@@ -9,7 +9,7 @@ class User extends Controller
         }
 
         $data['page'] = 'users';
-        $data['title'] = 'Daftar User';
+        $data['title'] = 'User';
         $data['users'] = $this->model('UserModel')->getAllUsers();
 
         $this->view_admin('admin/user/index', $data);
@@ -23,7 +23,7 @@ class User extends Controller
         }
 
         $data['page'] = 'users';
-        $data['title'] = 'Tambah User';
+        $data['title'] = 'User';
         $data['subpage'] = 'create';
         if ($user != null) {
             $data['user'] = $user;
@@ -49,12 +49,21 @@ class User extends Controller
             $user = (array) $user;
             $_SESSION['flash'] = 'Harap isi semua data';
             $this->create($user);
+            return;
+        }
+
+        if (!empty($this->model('UserModel')->getUserByEmail($user->email))) {
+            $user = (array) $user;
+            $_SESSION['flash'] = 'Email sudah ada';
+            $this->create($user);
+            return;
         }
 
         if ($_POST['password'] != $_POST['confirm_password']) {
             $user = (array) $user;
             $_SESSION['flash'] = 'Konfirmasi password tidak sesuai';
             $this->create($user);
+            return;
         }
 
         $user->insert();
@@ -92,6 +101,7 @@ class User extends Controller
 
         $user = $this->model('UserModel')->getUserById($id, true);
         $password = $user['password'];
+        $email = $user['email'];
         if (!empty($user)) {
             $user = $this->model('UserModel');
         }
@@ -108,12 +118,21 @@ class User extends Controller
             $user = (array) $user;
             $_SESSION['flash'] = 'Harap isi semua data';
             $this->edit($id, $user);
+            return;
         }
 
         if ($_POST['password'] != $_POST['confirm_password']) {
             $user = (array) $user;
             $_SESSION['flash'] = 'Konfirmasi password tidak sesuai';
             $this->edit($id, $user);
+            return;
+        }
+
+        if ($_POST['email'] != $email && !empty($this->model('UserModel')->getUserByEmail($user->email))) {
+            $user = (array) $user;
+            $_SESSION['flash'] = 'Email sudah ada';
+            $this->edit($id, $user);
+            return;
         }
 
         $user->update();
