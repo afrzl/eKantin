@@ -32,17 +32,10 @@
                         <input type="password" placeholder="Kata Sandi" name="password" class="password" required>
                         <i class='bx bx-hide eye-icon'></i>
                     </div>
-                    <div class="form-link">
-                        <a href="#" class="forgot-pass">Lupa kata sandi?</a>
-                    </div>
                     <div class="field button-field">
                         <input type="submit" value="Masuk">
                     </div>
                 </form>
-
-                <div class="form-link">
-                    <span>Belum punya akun? <a href="#" class="link signup-link">Daftar</a></span>
-                </div>
             </div>
 
             <div class="line"></div>

@@ -26,8 +26,14 @@
                                         </p>
                                     </div>
                                     <?php if ($data['product']['stock'] > 0): ?>
-                                        <button class="add-cart-btn"
-                                            onclick="addToCart(<?= $data['product']['id'] ?>, 1)">PESAN SEKARANG</button>
+                                        <?php if (isset($_SESSION['id'])): ?>
+                                            <button class="add-cart-btn"
+                                                onclick="addToCart(<?= $data['product']['id'] ?>, 1)">PESAN SEKARANG</button>
+                                        <?php else: ?>
+                                            <button class="add-cart-btn"><a style="color: white"
+                                                    href="<?= BASE_URL ?>/login">PESAN
+                                                    SEKARANG</a></button>
+                                        <?php endif ?>
                                     <?php else: ?>
                                         <button class="outstock-btn" disabled>PRODUK SEDANG HABIS</button>
                                     <?php endif ?>
@@ -120,5 +126,5 @@
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(body);
         }
-    <?php } ?>
-</script>
+    </script>
+<?php } ?>
