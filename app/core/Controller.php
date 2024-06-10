@@ -33,6 +33,11 @@ class Controller
         require_once 'app/views/canteen/templates/template.php';
     }
 
+    public function view_admin($view, $data = [])
+    {
+        require_once 'app/views/admin/templates/template.php';
+    }
+
     public function model($model)
     {
         require_once 'app/models/' . $model . '.php';

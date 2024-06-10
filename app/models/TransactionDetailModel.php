@@ -28,6 +28,21 @@ class TransactionDetailModel
         return $this->db->execute();
     }
 
+    public function getAllTransactionDetail($status = null)
+    {
+        $query = 'SELECT p.product_id as product_id, p.qty as qty, p.price as price, c1.name as product_name, c1.slug as product_slug, c1.image as product_image, c2.name as canteen_name, c2.email as canteen_slug
+        FROM ' . $this->table . ' p LEFT JOIN products c1 ON p.product_id = c1.id LEFT JOIN users c2 ON c1.canteen_id = c2.id LEFT JOIN transactions c3 ON p.transaction_id = c3.id';
+        if ($status != null) {
+            $query .= ' WHERE c3.status = :status';
+        }
+        $this->db->query($query);
+        if ($status != null) {
+            $this->db->bind('status', $status);
+        }
+
+        return $this->db->resultSet();
+    }
+
     public function getTransactionDetailByTransactionId($transaction_id)
     {
         $query = 'SELECT p.product_id as product_id, p.qty as qty, p.price as price, c1.name as product_name, c1.slug as product_slug, c1.image as product_image, c2.name as canteen_name, c2.email as canteen_slug

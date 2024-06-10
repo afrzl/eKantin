@@ -5,6 +5,8 @@ class UserModel
     private $table = 'users';
     private $db;
 
+    public $id, $email, $name, $password, $phone, $role;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -52,28 +54,69 @@ class UserModel
         return $this->db->single();
     }
 
-    public function getUserById($id)
+    public function getUserById($id, $pw = false)
     {
-        $this->db->query(
-            'SELECT id, email, name, phone, role FROM ' . $this->table . ' WHERE id=:id'
-        );
+        $query = 'SELECT id, email, name, phone, role';
+        if ($pw) {
+            $query .= ', password';
+        }
+        $query .= ' FROM ' . $this->table . ' WHERE id=:id';
+        $this->db->query($query);
         $this->db->bind('id', $id);
 
         return $this->db->single();
     }
 
-    public function insertUser($data)
+    public function insert()
     {
-        $data[2] = password_hash($data[2], PASSWORD_DEFAULT);
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->db->query(
             'INSERT INTO ' .
             $this->table .
-            ' (email, name, password) VALUES (:email, :name, :password)'
+            ' (email, name, password, phone, role) VALUES (:email, :name, :password, :phone, :role)'
         );
-        $this->db->bind('email', $data[0]);
-        $this->db->bind('name', $data[1]);
-        $this->db->bind('password', $data[2]);
+        $this->db->bind('email', $this->email);
+        $this->db->bind('name', $this->name);
+        $this->db->bind('password', $this->password);
+        $this->db->bind('phone', $this->phone);
+        $this->db->bind('role', $this->role);
 
         return $this->db->execute();
+    }
+
+    public function update()
+    {
+        $query = 'UPDATE ' .
+            $this->table .
+            ' SET email = :email, name = :name, password = :password, phone = :phone, role = :role';
+        $query .= ' WHERE id = :id';
+        $this->db->query($query);
+
+        $this->db->bind('id', $this->id);
+        $this->db->bind('email', $this->email);
+        $this->db->bind('name', $this->name);
+        $this->db->bind('password', $this->password);
+        $this->db->bind('phone', $this->phone);
+        $this->db->bind('role', $this->role);
+
+        return $this->db->execute();
+    }
+
+    public function delete($id)
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+
+        return $this->db->execute();
+    }
+
+    public function validation()
+    {
+        if ($this->email == '' || $this->name == '' || $this->password == '' || $this->phone == '' || $this->role == '') {
+            return false;
+        }
+
+        return true;
     }
 }

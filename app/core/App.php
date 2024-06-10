@@ -17,19 +17,19 @@ class App
         if (isset($url[0])) {
             if ($url[0] == 'a' && isset($url[1])) {
                 $folder = 'admin/';
-                unset($url[0]);
+                array_shift($url);
             } else if ($url[0] == 'c' && isset($url[1])) {
                 $folder = 'canteen/';
                 array_shift($url);
             }
 
-            if (file_exists('app/controllers/' . $folder . $url[0] . '.php')) {
+            if (file_exists('app/controllers/' . $folder . ucfirst($url[0]) . '.php')) {
                 $this->controller = $url[0];
                 unset($url[0]);
             }
         }
 
-        require_once 'app/controllers/' . $folder . $this->controller . '.php';
+        require_once 'app/controllers/' . $folder . ucfirst($this->controller) . '.php';
         $this->controller = new $this->controller();
 
         //method

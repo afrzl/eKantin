@@ -51,6 +51,22 @@ class TransactionModel
         return $this->db->execute();
     }
 
+    public function getAllTransaction($status = null)
+    {
+        $query = 'SELECT * FROM ' . $this->table;
+        if ($status != null) {
+            $query .= ' WHERE status = :status';
+        }
+        $query .= ' ORDER BY id DESC';
+        $this->db->query($query);
+
+        if ($status != null) {
+            $this->db->bind('status', $status);
+        }
+
+        return $this->db->resultSet();
+    }
+
     public function getTransactionsByUserId($user_id)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE user_id = :user_id ORDER BY id DESC');
