@@ -1,7 +1,6 @@
 <aside>
     <div class="toggle">
         <a href="<?= BASE_URL ?>" class="logo">
-            <img src="<?= ASSETS ?>/images/logo.png">
             <h2>e<span class="primary">Kantin</span></h2>
         </a>
         <div class="close" id="close-btn">
